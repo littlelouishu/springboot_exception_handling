@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 import com.practise.springboot.exception.handling.controller.HttpStatusResponse;
+import com.practise.springboot.exception.handling.exception.SampleCheckedException;
 import com.practise.springboot.exception.handling.exception.SampleException;
 import com.practise.springboot.exception.handling.exception.SampleExcetionResponse;
 
@@ -41,6 +42,14 @@ public class ControllerExceptionHandler {
         return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED)
             .contentType(MediaType.APPLICATION_JSON)
             .body(new HttpStatusResponse(HttpStatus.METHOD_NOT_ALLOWED));
+    }
+
+    @ExceptionHandler(SampleCheckedException.class)
+    @ResponseBody
+    public ResponseEntity<HttpStatusResponse> handleSampleCheckedException() {
+        return ResponseEntity.status(HttpStatus.BAD_GATEWAY)
+            .contentType(MediaType.APPLICATION_JSON)
+            .body(new HttpStatusResponse(HttpStatus.BAD_REQUEST));
     }
 
     @ExceptionHandler(SampleException.class)
